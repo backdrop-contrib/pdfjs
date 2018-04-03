@@ -1,0 +1,119 @@
+<?php
+
+
+
+/**
+ * Implements hook_library_info().
+ */
+function pdfjs_library_info() {
+  $libraries['pdf.js'] = array(
+    'title' => 'PDF.js',
+    'website' => 'https://mozilla.github.io/pdf.js/',
+    'version' => '1.9.426',
+  );
+
+  return $libraries;
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function pdfjs_theme() {
+  $theme = array(
+    'pdfjs_iframe' => array(
+      'variables' => array(
+        'file' => NULL,
+        'file_url' => NULL,
+        'iframe_src' => NULL,
+        'width' => NULL,
+        'height' => NULL,
+      ),
+      'template' => 'templates/pdfjs_iframe',
+    ),
+  );
+  return $theme;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function pdfjs_field_formatter_info() {
+  return array(
+    'pdfjs_default' => array(
+      'label' => t('PDF.js: Default viewer'),
+      'description' => 'Use the viewer like http://mozilla.github.io/pdf.js/web/viewer.html.',
+      'field types' => array('file'),
+      'settings' => array(
+        'keep_pdfjs' => TRUE,
+        'width' => '100%',
+        'height' => '600px',
+      ),
+    ),
+  );
+}
+
+function pdfjs_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  $element = array();
+
+  if ($display['type'] == 'pdfjs_default') {
+    $element['width'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Width',
+      '#default_value' => $settings['width'],
+      '#description' => t('Width of the viewer. Ex: 250px or 100%'),
+    );
+    $element['height'] = array(
+      '#type' => 'textfield',
+      '#title' => 'Height',
+      '#default_value' => $settings['height'],
+      '#description' => t('Height of the viewer. Ex: 250px or 100%'),
+    );
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function pdfjs_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  if ($display['type'] == 'pdfjs_default') {
+    return t("Width: @width , Height: @height", array('@width' => $settings['width'] , '@height' => $settings['height']));
+  }
+
+  return '';
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function pdfjs_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  $settings = $display['settings'];
+  switch ($display['type']) {
+    case 'pdfjs_default':
+      foreach ($items as $delta => $item) {
+        if (strpos($item['filemime'], 'pdf')) {
+          $file_url = file_create_url($item['uri']);
+          $library_path = backdrop_get_path('module', 'pdfjs') . '/libraries/pdfjs';
+          $iframe_src = file_create_url($library_path . '/web/viewer.html') . '?file=' . rawurlencode($file_url);
+
+          $element[$delta] = array(
+            '#theme' => 'pdfjs_iframe',
+            '#file' => (object) $item,
+            '#file_url' => $file_url,
+            '#iframe_src' => $iframe_src,
+            '#width'  => $settings['width'],
+            '#height'  => $settings['height'],
+          );
+        }
+      }
+      break;
+  }
+  return $element;
+}

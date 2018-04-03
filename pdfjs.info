@@ -1,0 +1,7 @@
+type = module
+name = PDF.js
+description = Display PDF files with PDF.js reader from Mozilla.
+package = Field
+backdrop = 1.x
+
+dependencies[] = file

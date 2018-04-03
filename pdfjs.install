@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Install file for PDF.js module.
+ */
+
+/**
+ * Implements hook_requirements().
+ *
+ * Set a status message to indicate if PDF.js library can be located.
+ */
+function pdfjs_requirements($phase) {
+  $requirements = array();
+  // Ensure translations don't break during installation.
+  $t = get_t();
+
+  switch ($phase) {
+    case 'runtime':
+      $pdfjs = backdrop_get_library('pdfjs', 'pdf.js');
+      $requirements['pdf.js'] = array(
+        'title' => $t("PDF.js"),
+        'severity' => REQUIREMENT_OK,
+        'value' => $pdfjs['version'],
+      );
+      break;
+  }
+
+  return $requirements;
+}

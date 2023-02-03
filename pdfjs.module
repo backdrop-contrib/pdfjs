@@ -9,7 +9,7 @@ function pdfjs_library_info() {
   $libraries['pdf.js'] = array(
     'title' => 'PDF.js',
     'website' => 'https://mozilla.github.io/pdf.js/',
-    'version' => '1.9.426',
+    'version' => '2.10.377',
   );
 
   return $libraries;

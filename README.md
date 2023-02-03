@@ -32,12 +32,13 @@ https://github.com/backdrop-contrib/pdfjs/issues
 Current Maintainers
 -------------------
 
-- opi (https://github.com/opi/)
+- [Laryn Kragt Bakker](https://github.com/laryn)
 
 Credits
 -------
 
-- Inspired from Drupal's [PDF module](https://www.drupal.org/project/pdf).
+- Created by [opi](https://github.com/opi) with inspiration from Drupal's
+  [PDF module](https://www.drupal.org/project/pdf).
 
 License
 -------

@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * @file
+ */
 
 /**
  * Implements hook_library_info().
@@ -9,7 +11,7 @@ function pdfjs_library_info() {
   $libraries['pdf.js'] = array(
     'title' => 'PDF.js',
     'website' => 'https://mozilla.github.io/pdf.js/',
-    'version' => '2.10.377',
+    'version' => '3.8.162',
   );
 
   return $libraries;
@@ -53,6 +55,9 @@ function pdfjs_field_formatter_info() {
   );
 }
 
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
 function pdfjs_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];

@@ -11,7 +11,7 @@ function pdfjs_library_info() {
   $libraries['pdf.js'] = array(
     'title' => 'PDF.js',
     'website' => 'https://mozilla.github.io/pdf.js/',
-    'version' => '4.4.168',
+    'version' => '4.10.38',
   );
 
   return $libraries;

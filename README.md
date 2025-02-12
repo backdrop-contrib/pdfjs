@@ -19,12 +19,12 @@ Installation
 Documentation
 -------------
 
-Upstream [PDF.js documentation is available here](http://mozilla.github.io/pdf.js/).
+ - Upstream [PDF.js documentation is available here](http://mozilla.github.io/pdf.js/).
 
 Issues
 ------
 
-Bugs and Feature requests should be reported in [the Issue Queue](https://github.com/backdrop-contrib/pdfjs/issues).
+ - Bugs and Feature requests should be reported in [the Issue Queue](https://github.com/backdrop-contrib/pdfjs/issues).
 
 Current Maintainers
 -------------------
